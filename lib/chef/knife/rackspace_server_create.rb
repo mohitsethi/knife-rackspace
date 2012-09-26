@@ -68,6 +68,12 @@ class Chef
         :long => "--ssh-password PASSWORD",
         :description => "The ssh password"
 
+      options :ssh_port,
+        :short => "-p PORT",
+        :long => "--ssh-port PORT",
+        :description => "The ssh port",
+        :default => "22"
+
       option :identity_file,
         :short => "-i IDENTITY_FILE",
         :long => "--identity-file IDENTITY_FILE",
@@ -202,6 +208,7 @@ class Chef
         bootstrap.config[:first_boot_attributes] = config[:first_boot_attributes]
         bootstrap.config[:ssh_user] = config[:ssh_user] || "root"
         bootstrap.config[:ssh_password] = server.password
+        bootstrap.config[:ssh_port] = locate_config_value(:ssh_port)
         bootstrap.config[:identity_file] = config[:identity_file]
         bootstrap.config[:chef_node_name] = config[:chef_node_name] || server.id
         bootstrap.config[:prerelease] = config[:prerelease]
